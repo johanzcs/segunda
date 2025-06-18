@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel del Empleado - Aceicar</title>
+  <link rel="stylesheet" href="estilos.css">
+  <style>
+    .panel {
+      max-width: 900px;
+      margin: 60px auto;
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 35px;
+      color: white;
+      box-shadow: 0 0 35px rgba(227, 6, 19, 0.3);
+    }
+
+    .panel h2 {
+      color: #e30613;
+      margin-bottom: 45px;
+      text-align: center;
+    }
+
+    .menu-empleado {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+    }
+
+    .menu-empleado a {
+      background: #e30613;
+      padding: 15px;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      border-radius: 25px;
+      font-weight: bold;
+      font-size: 16px;
+      transition: background 0.18s;
+    }
+
+    .menu-empleado a:hover {
+      background: #b0000b;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h2>Panel del Empleado</h2>
+    <div class="menu-empleado">
+      <a href="facturacion.html">🧾 Crear Factura</a>
+      <a href="clientes.html">👥 Ver Clientes</a>
+      <a href="inventario.html">📦 Ver Inventario</a>
+      <a href="php/cerrar_sesion.php">🔒 Cerrar Sesión</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Facturación - Aceicar</title>
+  <link rel="stylesheet" href="estilos.css">
+  <style>
+    .formulario-factura {
+      max-width: 500px;
+      margin: 60px auto;
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 25px;
+      color: white;
+      box-shadow: 0 0 25px rgba(227, 6, 19, 0.3);
+    }
+
+    .formulario-factura h2 {
+      color: #e30613;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    form input, form select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 20px;
+      border: none;
+      background-color: #333;
+      color: white;
+    }
+
+    form button {
+      width: 100%;
+      padding: 12px;
+      background-color: #e30613;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    form button:hover {
+      background-color: #b0000b;
+    }
+  </style>
+</head>
+<body>
+  <div class="formulario-factura">
+    <h2>Crear Factura</h2> 
+    <form action="php/guardar_factura.php" method="POST">
+        <input type="text" name="cliente" placeholder="Nombre del Cliente" required>
+        <input type="text" name="cedula" placeholder="Cédula" required>
+        <input type="email" name="correo" placeholder="Correo Electrónico" required>
+        <input type="text" name="vehiculo" placeholder="Tipo de Carro" required>
+        <input type="text" name="placa" placeholder="Placa" required>
+        
+        <select name="producto" required onchange="calcularPrecio()">
+            <option value="">Seleccione Tipo de Aceite</option>
+            <option value="Aceite 10W-40" data-precio="90000">Aceite 10W-40</option>
+            <option value="Aceite 5W-30" data-precio="75000">Aceite 5W-30</option>
+            <option value="Aceite 15W-50" data-precio="95000">Aceite 15W-50</option>
+        </select>
+        
+        <input type="number" name="cantidad" id="cantidad" placeholder="Cantidad" min="1" required oninput="calcularPrecio()">
+        <input type="text" name="total" id="total" placeholder="Precio Total" readonly>
+        
+        <button type="submit">Generar Factura</button>
+        <button type="reset">Corregir Factura</button>
+    </form>
+
+    
+  </div>
+</body>
+</html>
+
+<script>
+  function calcularPrecio() {
+    const select = document.querySelector('select[name="producto"]');
+    const cantidad = document.getElementById('cantidad').value || 0;
+    const precioUnitario = select.options[select.selectedIndex].getAttribute('data-precio') || 0;
+    const total = cantidad * precioUnitario;
+    document.getElementById('total').value = total ? '$' + total.toLocaleString() : '';
+  }
+</script>
