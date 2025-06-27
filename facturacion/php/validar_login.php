@@ -18,6 +18,7 @@ if ($resultado->num_rows === 1) {
     // Verificar contraseña encriptada
     if (password_verify($clave, $usuario['clave'])) {
         $_SESSION['usuario'] = $usuario['nombre'];
+        $_SESSION['correo'] = $usuario['correo']; 
         $_SESSION['rol'] = $usuario['rol'];
 
         // Redirigir según el rol

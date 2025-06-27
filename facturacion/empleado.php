@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// Solo permite acceso si es empleado
 if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'empleado') {
     header("Location: login.php");
     exit;
 }
 
-$empleado = $_SESSION['usuario'];
+$nombre = $_SESSION['usuario'];
+$seccion = $_GET['seccion'] ?? 'inicio';
 ?>
 
 <!DOCTYPE html>
@@ -18,69 +18,98 @@ $empleado = $_SESSION['usuario'];
   <link rel="stylesheet" href="estilos.css">
   <style>
     body {
-      background: #111;
+      display: flex;
+      margin: 0;
       font-family: 'Segoe UI', sans-serif;
+      background-color: #111;
       color: white;
+    }
+
+    aside {
+      width: 220px;
+      background: #1a1a1a;
+      height: 100vh;
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+    }
+
+    aside h2 {
+      color: #e30613;
+      text-align: center;
+    }
+
+    .menu a {
+      display: block;
+      background-color: #e30613;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      margin: 10px 0;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .menu a:hover {
+      background-color: #b0000b;
+    }
+
+    main {
+      flex: 1;
       padding: 40px;
     }
 
-    .contenedor {
-      max-width: 800px;
-      margin: auto;
-      background: #1a1a1a;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(227, 6, 19, 0.3);
-    }
-
-    h2 {
+    .bienvenida {
       text-align: center;
-      color: #e30613;
     }
 
-    form {
+    .bienvenida img {
+      max-width: 300px;
       margin-top: 20px;
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin: 8px 0;
-      border-radius: 6px;
-      border: none;
-      background: #333;
-      color: white;
-    }
-
-    button {
-      background-color: #e30613;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #b0000b;
+      border-radius: 12px;
     }
   </style>
 </head>
 <body>
-  <div class="contenedor">
-    <h2>Bienvenido, <?php echo htmlspecialchars($empleado); ?> - Crear Factura</h2>
-    
-    <form action="php/guardar_factura.php" method="POST">
-      <input type="text" name="correo" placeholder="Correo del cliente" required />
-      <input type="text" name="tipo_carro" placeholder="Tipo de carro" required />
-      <input type="text" name="placa" placeholder="Placa del vehículo" required />
-      <select name="aceite" required>
-        <option value="">Tipo de aceite</option>
-        <option value="10W-40">10W-40</option>
-        <option value="5W-30">5W-30</option>
-        <option value="15W-50">15W-50</option>
-      </select>
-      <input type="number" name="cantidad" placeholder="Cantidad" required />
-      <input type="number" name="precio" placeholder="Precio total" required />
-      <button type="submit">Generar Factura</button>
-    </form>
-  </div>
+  <aside>
+    <h2>ACEICAR</h2>
+    <div class="menu">
+      <a href="?seccion=inicio">Inicio</a>
+      <a href="?seccion=facturacion">Facturación</a>
+      <a href="?seccion=inventario">Inventario</a>
+      <a href="?seccion=agregar_inventario">Agregar Inventario</a>
+      <a href="?seccion=registro_ventas">Registro de ventas</a>
+
+      <a href="php/cerrar_sesion.php">Cerrar sesión</a>
+    </div>
+  </aside>
+
+  <main>
+    <?php if ($seccion === 'inicio'): ?>
+      <div class="bienvenida">
+        <h2>Bienvenido, <?php echo htmlspecialchars($nombre); ?></h2>
+        <p>Selecciona una opción del menú para comenzar.</p>
+        <img src="https://cdn.pixabay.com/photo/2016/11/18/17/20/oil-change-1835376_1280.jpg" alt="Bienvenida">
+      </div>
+
+    <?php elseif ($seccion === 'facturacion'): ?>
+      <?php include "php/form_factura.php"; ?>
+
+    <?php elseif ($seccion === 'inventario'): ?>
+      <?php include "inventario.php"; ?>
+
+    <?php elseif ($seccion === 'agregar_inventario'): ?>
+      <?php include "php/agregar_inventario.php"; ?>
+      
+      <?php elseif ($seccion === 'registro_ventas'): ?>
+        <?php include "php/ventas.php"; ?>
+  
+
+
+    <?php else: ?>
+      <p>Sección no encontrada.</p>
+    <?php endif; ?>
+  </main>
 </body>
 </html>
+

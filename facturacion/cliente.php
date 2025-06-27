@@ -7,7 +7,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'cliente') {
 }
 
 $usuario = $_SESSION['usuario'];
-$correo = $_SESSION['correo'] ?? ''; // debe guardarse en login.php
+$correo = $_SESSION['correo'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -38,18 +38,6 @@ $correo = $_SESSION['correo'] ?? ''; // debe guardarse en login.php
       text-align: center;
     }
 
-    form {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    select, button {
-      padding: 8px 12px;
-      margin: 0 5px;
-      border-radius: 6px;
-      border: none;
-    }
-
     .facturas {
       margin-top: 30px;
     }
@@ -75,29 +63,6 @@ $correo = $_SESSION['correo'] ?? ''; // debe guardarse en login.php
 <body>
   <div class="panel">
     <h2>Bienvenido, <?php echo htmlspecialchars($usuario); ?></h2>
-    <p>Consulta tus facturas por mes y año.</p>
-
-    <form method="GET">
-      <select name="mes" required>
-        <option value="">Mes</option>
-        <?php
-          for ($m = 1; $m <= 12; $m++) {
-            printf('<option value="%02d">%02d</option>', $m, $m);
-          }
-        ?>
-      </select>
-
-      <select name="anio" required>
-        <option value="">Año</option>
-        <?php
-          for ($y = 2023; $y <= date("Y"); $y++) {
-            echo "<option value=\"$y\">$y</option>";
-          }
-        ?>
-      </select>
-
-      <button type="submit">Buscar</button>
-    </form>
 
     <div class="facturas">
       <h3>Facturas:</h3>
@@ -106,15 +71,8 @@ $correo = $_SESSION['correo'] ?? ''; // debe guardarse en login.php
       mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
       $sql = "SELECT * FROM facturas WHERE correo = ?";
-      if (isset($_GET['mes']) && isset($_GET['anio'])) {
-        $sql .= " AND MONTH(fecha) = ? AND YEAR(fecha) = ?";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bind_param("sii", $correo, $_GET['mes'], $_GET['anio']);
-      } else {
-        $stmt = $conexion->prepare($sql);
-        $stmt->bind_param("s", $correo);
-      }
-
+      $stmt = $conexion->prepare($sql);
+      $stmt->bind_param("s", $correo);
       $stmt->execute();
       $result = $stmt->get_result();
 
@@ -122,12 +80,20 @@ $correo = $_SESSION['correo'] ?? ''; // debe guardarse en login.php
         while ($factura = $result->fetch_assoc()) {
           echo "<div class='factura-item'>";
           echo "<strong>Factura ID:</strong> {$factura['id']}<br>";
-          echo "<strong>Fecha:</strong> {$factura['fecha']}<br>";
+          echo "<strong>Correo:</strong> {$factura['correo']}<br>";
+          echo "<strong>Tipo de carro:</strong> {$factura['tipo_carro']}<br>";
+          echo "<strong>Placa:</strong> {$factura['placa']}<br>";
+          echo "<strong>Aceite:</strong> {$factura['aceite']}<br>";
+          echo "<strong>Cantidad:</strong> {$factura['cantidad']}<br>";
           echo "<strong>Total:</strong> $" . number_format($factura['total'], 0, ',', '.') . "<br>";
+          echo "<strong>Filtro cambiado:</strong> {$factura['filtro']}<br>";
+          echo "<strong>Repuesto adicional:</strong> {$factura['repuesto']}<br>";
+          echo "<strong>Fecha:</strong> {$factura['fecha']}<br>";
+          echo "<a href='php/generar_xml.php?id={$factura['id']}' target='_blank'>📄 Ver XML</a>";
           echo "</div>";
         }
       } else {
-        echo "<p>No se encontraron facturas para este período.</p>";
+        echo "<p>No tienes facturas registradas aún.</p>";
       }
       ?>
     </div>
@@ -136,4 +102,5 @@ $correo = $_SESSION['correo'] ?? ''; // debe guardarse en login.php
   </div>
 </body>
 </html>
+
 
