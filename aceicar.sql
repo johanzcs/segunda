@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2025 a las 15:45:53
+-- Tiempo de generación: 01-07-2025 a las 16:20:35
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 7.4.29
 
@@ -37,18 +37,24 @@ CREATE TABLE `facturas` (
   `fecha` date DEFAULT NULL,
   `total` decimal(10,2) DEFAULT NULL,
   `filtro` varchar(100) NOT NULL,
-  `repuesto` varchar(100) NOT NULL
+  `repuesto` varchar(100) NOT NULL,
+  `pago_cliente` decimal(10,2) DEFAULT NULL,
+  `cambio` decimal(10,2) DEFAULT NULL,
+  `metodo_pago` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `facturas`
 --
 
-INSERT INTO `facturas` (`id`, `correo`, `tipo_carro`, `placa`, `aceite`, `cantidad`, `fecha`, `total`, `filtro`, `repuesto`) VALUES
-(1, 'aceite@gmail.com', 'spart gt', 'fis837', '5W-30', 2, '2025-06-26', '90.00', '', ''),
-(2, 'aceite@gmail.com', 'kia picanto', 'HJE839', '10W-40', 4, '2025-06-26', '110.00', '', ''),
-(3, 'aceite@gmail.com', 'chebrolet aveo', 'JZB829', '5W-30', 5, '2025-06-26', '120.00', '', ''),
-(4, 'aceite@gmail.com', 'chevrolet joy', 'HSD319', '10W-40', 6, '2025-06-27', '130.00', 'Filtro de aceite', 'Bujías');
+INSERT INTO `facturas` (`id`, `correo`, `tipo_carro`, `placa`, `aceite`, `cantidad`, `fecha`, `total`, `filtro`, `repuesto`, `pago_cliente`, `cambio`, `metodo_pago`) VALUES
+(1, 'aceite@gmail.com', 'spart gt', 'fis837', '5W-30', 2, '2025-06-26', '90.00', '', '', '0.00', '0.00', ''),
+(2, 'aceite@gmail.com', 'kia picanto', 'HJE839', '10W-40', 4, '2025-06-26', '110.00', '', '', '0.00', '0.00', ''),
+(3, 'aceite@gmail.com', 'chebrolet aveo', 'JZB829', '5W-30', 5, '2025-06-26', '120.00', '', '', '0.00', '0.00', ''),
+(4, 'aceite@gmail.com', 'chevrolet joy', 'HSD319', '10W-40', 6, '2025-06-27', '130.00', 'Filtro de aceite', 'Bujías', '0.00', '0.00', ''),
+(5, 'aceite@gmail.com', 'spark', 'THA 234', '5W-30', 2, '2025-07-01', '150.50', 'Filtro de aire', 'Pastillas de freno', '160.00', '9.50', ''),
+(6, 'aceite@gmail.com', 'kia picanto', 'THB 345', '15W-50', 4, '2025-07-01', '170.50', 'Filtro de aceite', 'Sensor de oxígeno', '180.00', '9.50', ''),
+(7, 'aceite@gmail.com', 'AVEO ', 'SHS 112', '10W-40', 1, '2025-07-01', '165.50', 'Filtro de aceite', 'Bujías', '170.00', '4.50', '');
 
 -- --------------------------------------------------------
 
@@ -60,10 +66,17 @@ CREATE TABLE `inventario` (
   `id` int(11) NOT NULL,
   `producto` varchar(100) NOT NULL,
   `tipo` varchar(50) NOT NULL,
-  `catidad` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
   `precio` decimal(10,0) NOT NULL,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `inventario`
+--
+
+INSERT INTO `inventario` (`id`, `producto`, `tipo`, `cantidad`, `precio`, `fecha`) VALUES
+(1, 'aceite 10w-40 mercado libre', '10w-40', 10, '100', '2025-07-01');
 
 -- --------------------------------------------------------
 
@@ -120,13 +133,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

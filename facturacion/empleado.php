@@ -103,7 +103,7 @@ $seccion = $_GET['seccion'] ?? 'inicio';
       
       <?php elseif ($seccion === 'registro_ventas'): ?>
         <?php include "php/ventas.php"; ?>
-  
+
 
 
     <?php else: ?>
