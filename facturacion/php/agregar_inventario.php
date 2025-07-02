@@ -20,7 +20,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'empleado') {
       <input type="text" name="producto" placeholder="Nombre del producto" required>
       <input type="text" name="tipo" placeholder="Tipo (aceite, filtro...)" required>
       <input type="number" name="cantidad" placeholder="Cantidad" required>
-      <input type="number" name="precio" placeholder="Precio unitario" step="0.01" required>
+      <input type="number" name="precio" placeholder="Precio unitario" step="0.001" required>
       <button type="submit">Guardar</button>
     </form>
     <p style="text-align: center; margin-top: 15px;"><a href="inventario.php" style="color:#e30613;">← Volver al Inventario</a></p>
