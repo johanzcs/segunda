@@ -1,5 +1,10 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+date_default_timezone_set('America/Bogota'); // ← Establece hora de Colombia
+
+}
+
 include "php/conexion.php";
 
 if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'empleado') {
@@ -18,7 +23,7 @@ $ventas = $conexion->query("SELECT * FROM ventas ORDER BY fecha DESC, hora DESC"
     <th>Producto</th>
     <th>Tipo Vehículo</th>
     <th>Cantidad</th>
-    <th>Precio Unitario</th>
+    <th>Precio </th>
     <th>Total</th>
     <th>Fecha</th>
     <th>Hora</th>
@@ -30,7 +35,7 @@ $ventas = $conexion->query("SELECT * FROM ventas ORDER BY fecha DESC, hora DESC"
     <td><?= $v['producto'] ?></td>
     <td><?= $v['tipo'] ?></td>
     <td><?= $v['cantidad_vendida'] ?></td>
-    <td>$<?= number_format($v['precio_unitario'], 3, ',', '.') ?></td>
+    <td>$<?= number_format($v['precio'], 3, ',', '.') ?></td>
     <td>$<?= number_format($v['total'], 3, ',', '.') ?></td>
     <td><?= $v['fecha'] ?></td>
     <td><?= $v['hora'] ?></td>

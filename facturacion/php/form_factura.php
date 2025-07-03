@@ -21,13 +21,28 @@ include "conexion.php";
   <input type="text" name="tipo_carro" placeholder="Tipo de carro" required>
   <input type="text" name="placa" placeholder="Placa del vehículo" required>
 
-  <!-- Aceite -->
+  <!-- Producto (desde inventario) -->
+  <label>Producto:</label>
+  <select name="producto" required>
+    <option value="">Seleccione producto</option>
+    <?php
+    $productos = $conexion->query("SELECT producto, cantidad FROM inventario WHERE cantidad > 0");
+    while ($row = $productos->fetch_assoc()) {
+      echo "<option value=\"{$row['producto']}\">{$row['producto']} (Disponibles: {$row['cantidad']})</option>";
+    }
+    ?>
+  </select>
+
+  <!-- Tipo de aceite (desde inventario) -->
   <label>Tipo de aceite:</label>
   <select name="aceite" required>
-    <option value="">Selecciona aceite</option>
-    <option value="10W-40">10W-40</option>
-    <option value="5W-30">5W-30</option>
-    <option value="15W-50">15W-50</option>
+    <option value="">Seleccione tipo</option>
+    <?php
+    $tipos = $conexion->query("SELECT DISTINCT tipo FROM inventario WHERE cantidad > 0");
+    while ($t = $tipos->fetch_assoc()) {
+      echo "<option value=\"{$t['tipo']}\">{$t['tipo']}</option>";
+    }
+    ?>
   </select>
 
   <!-- Precio y Cantidad -->
