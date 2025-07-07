@@ -2,7 +2,7 @@
 session_start();
 include "conexion.php";
 
-// Obtener ID de la factura (por GET)
+
 $id = $_GET['id'] ?? 0;
 
 if (!$id) {

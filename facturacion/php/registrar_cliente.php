@@ -25,7 +25,6 @@ if ($resultado->num_rows > 0) {
 // Encriptar la contraseña
 $claveSegura = password_hash($clave, PASSWORD_DEFAULT);
 
-// Insertar nuevo cliente (el rol se asigna automáticamente como 'cliente')
 $sql = "INSERT INTO usuarios (nombre, apellido, correo, clave, telefono) VALUES (?, ?, ?, ?, ?)";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("sssss", $nombre, $apellido, $correo, $claveSegura, $telefono);

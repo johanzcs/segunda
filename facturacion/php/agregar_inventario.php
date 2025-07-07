@@ -21,8 +21,8 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'empleado') {
     <form action="php/guardar_inventario.php" method="POST">
       <input type="text" name="producto" placeholder="Nombre del producto" required>
       <input type="text" name="tipo" placeholder="Tipo (aceite, filtro...)" required>
-      <input type="number" name="cantidad" placeholder="Cantidad" required>
-      <input type="number" name="precio" placeholder="Precio unitario" step="0.001" required>
+      <input type="number" name="cantidad" placeholder="Cantidad" min="1" required>
+      <input type="number" name="precio" placeholder="Precio unitario" step="0.001" min="1" value="10" required>
       <button type="submit">Guardar</button>
     </form>
     <p style="text-align: center; margin-top: 15px;"><a href="inventario.php" style="color:#e30613;">← Volver al Inventario</a></p>

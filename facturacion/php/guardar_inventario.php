@@ -15,7 +15,7 @@ if ($producto && $tipo && $cantidad > 0 && $precio > 0) {
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("ssids", $producto, $tipo, $cantidad, $precio, $fecha);
     $stmt->execute();
-    echo "<script>alert('✅ Producto agregado al inventario.'); window.location='../inventario.php';</script>";
+    echo "<script>alert(' Producto agregado al inventario.'); window.location='../inventario.php';</script>";
 } else {
-    echo "<script>alert('❌ Datos inválidos.'); window.location='../agregar_inventario.php';</script>";
+    echo "<script>alert(' Datos inválidos.'); window.location='../agregar_inventario.php';</script>";
 }

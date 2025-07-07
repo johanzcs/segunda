@@ -21,7 +21,7 @@ include "conexion.php";
   <input type="text" name="tipo_carro" placeholder="Tipo de carro" required>
   <input type="text" name="placa" placeholder="Placa del vehículo" required>
 
-  <!-- Producto (desde inventario) -->
+  
   <label>Producto:</label>
   <select name="producto" required>
     <option value="">Seleccione producto</option>
@@ -33,7 +33,7 @@ include "conexion.php";
     ?>
   </select>
 
-  <!-- Tipo de aceite (desde inventario) -->
+  
   <label>Tipo de aceite:</label>
   <select name="aceite" required>
     <option value="">Seleccione tipo</option>
@@ -44,10 +44,33 @@ include "conexion.php";
     }
     ?>
   </select>
+  
+  <input type="number" step="0.01" name="cantidad" placeholder="Cantidad" required>
+  
+   <label>Filtro cambiado:</label>
+  <select name="filtro">
+    <option value="No aplica">Sin cambio</option>
+    <option value="Filtro de aceite">Filtro de aceite</option>
+    <option value="Filtro de aire">Filtro de aire</option>
+    <option value="Filtro de combustible">Filtro de combustible</option>
+  </select>
+  
+  <input type="number" step="0.01" name="cantidad" placeholder="Cantidad" required>
 
-  <!-- Precio y Cantidad -->
+  <label>Repuesto adicional:</label>
+  <select name="repuesto">
+    <option value="No aplica">Sin repuesto</option>
+    <option value="Bujías">Bujías</option>
+    <option value="Pastillas de freno">Pastillas de freno</option>
+    <option value="Correa de repartición">Correa de repartición</option>
+    <option value="Sensor de oxígeno">Sensor de oxígeno</option>
+  </select>
+
+  
   <input type="number" step="0.01" name="cantidad" placeholder="Cantidad" required>
   <input type="number" step="0.01" name="precio" placeholder="Precio total" id="precio" required>
+
+  
 
   <!-- Método de pago -->
   <label>Método de pago:</label>
@@ -59,30 +82,14 @@ include "conexion.php";
     <option value="Bancolombia">Bancolombia</option>
   </select>
 
-  <!-- Solo si es efectivo -->
+  
   <div id="pago-efectivo" style="display:none;">
     <input type="number" step="0.01" name="pago_cliente" id="pago_cliente" placeholder="Pago del cliente">
     <button type="button" onclick="calcularCambio()">Calcular Cambio</button>
     <p id="cambio_texto"></p>
   </div>
 
-  <!-- Filtro y Repuesto -->
-  <label>Filtro cambiado:</label>
-  <select name="filtro">
-    <option value="No aplica">Sin cambio</option>
-    <option value="Filtro de aceite">Filtro de aceite</option>
-    <option value="Filtro de aire">Filtro de aire</option>
-    <option value="Filtro de combustible">Filtro de combustible</option>
-  </select>
-
-  <label>Repuesto adicional:</label>
-  <select name="repuesto">
-    <option value="No aplica">Sin repuesto</option>
-    <option value="Bujías">Bujías</option>
-    <option value="Pastillas de freno">Pastillas de freno</option>
-    <option value="Correa de repartición">Correa de repartición</option>
-    <option value="Sensor de oxígeno">Sensor de oxígeno</option>
-  </select>
+ 
 
   <input type="hidden" name="fecha" value="<?php echo date('Y-m-d'); ?>">
   <input type="hidden" name="cambio" id="cambio_final" value="0">

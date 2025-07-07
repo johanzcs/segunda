@@ -1,6 +1,6 @@
 <?php
 session_start();
-date_default_timezone_set('America/Bogota'); // <- AQUI SE FIJA LA HORA DE COLOMBIA
+date_default_timezone_set('America/Bogota'); 
 include "conexion.php";
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
@@ -31,7 +31,7 @@ if (
     empty($correo) || empty($producto) || empty($tipo_carro) || empty($placa) || empty($aceite) ||
     $cantidad <= 0 || $precio <= 0 || $pago_cliente < $precio
 ) {
-    echo "<script>alert('⚠️ Verifica los campos. El pago debe ser mayor o igual al total.'); window.location='../empleado.php?seccion=facturacion';</script>";
+    echo "<script>alert(' Verifica los campos. El pago debe ser mayor o igual al total.'); window.location='../empleado.php?seccion=facturacion';</script>";
     exit;
 }
 
@@ -41,7 +41,7 @@ $verificar->bind_param("ssi", $producto, $aceite, $cantidad);
 $verificar->execute();
 $res = $verificar->get_result();
 if ($res->num_rows === 0) {
-    echo "<script>alert('❌ No hay suficiente inventario para este producto y tipo.'); window.location='../empleado.php?seccion=facturacion';</script>";
+    echo "<script>alert(' No hay suficiente inventario para este producto y tipo.'); window.location='../empleado.php?seccion=facturacion';</script>";
     exit;
 }
 
@@ -54,10 +54,10 @@ $stmt->bind_param("ssssidddsss", $correo, $tipo_carro, $placa, $aceite, $cantida
 $registrado = $stmt->execute();
 
 if ($registrado) {
-    // 2. Calcular precio unitario
+    
     $precio_unitario = $precio / $cantidad;
 
-    // 3. Insertar en ventas
+    
     $sql_venta = "INSERT INTO ventas 
                   (producto, tipo, cantidad_vendida, precio, total, fecha, hora, metodo_pago) 
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -73,10 +73,10 @@ if ($registrado) {
     $stmt_update->bind_param("issi", $cantidad, $producto, $aceite, $cantidad);
     $stmt_update->execute();
 
-    // 5. Confirmar
+    
     echo "<script>window.location='../empleado.php?seccion=facturacion';</script>";
 } else {
-    echo "<script>alert('❌ Error al guardar la factura.'); window.location='../empleado.php?seccion=facturacion';</script>";
+    echo "<script>alert(' Error al guardar la factura.'); window.location='../empleado.php?seccion=facturacion';</script>";
 }
 ?>
 

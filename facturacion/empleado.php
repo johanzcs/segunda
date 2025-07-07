@@ -80,7 +80,7 @@ $seccion = $_GET['seccion'] ?? 'inicio';
       <a href="?seccion=agregar_inventario">Agregar Inventario</a>
       <a href="?seccion=registro_ventas">Registro de ventas</a>
 
-      <a href="php/cerrar_sesion.php">Cerrar sesión</a>
+      <a href="index.php">Cerrar sesión</a>
     </div>
   </aside>
 
